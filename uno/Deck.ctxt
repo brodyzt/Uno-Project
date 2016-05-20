@@ -1,0 +1,27 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Deck()
+comment0.text=\n\ Constructor\ for\ a\ new,\ full,\ shuffled\ Deck.\n
+comment1.params=
+comment1.target=void\ fillDeck()
+comment2.params=
+comment2.target=void\ shuffle()
+comment2.text=\n\ When\ performed\ on\ a\ Deck\ that\ is\ <i>at\ least\ partially\ filled,</i>,\n\ shuffles\ its\ cards\ randomly.\ Note\ that\ this\ does\ not\ fill\ the\ Deck,\n\ nor\ does\ it\ combine\ any\ outstanding\ cards\ into\ the\ Deck.\n
+comment3.params=
+comment3.target=boolean\ isEmpty()
+comment3.text=\n\ Returns\ true\ only\ if\ the\ Deck\ currently\ has\ no\ cards.\n
+comment4.params=
+comment4.target=Card\ draw()
+comment4.text=\n\ Returns\ the\ top\ card\ of\ the\ Deck,\ and\ removes\ it.\n\ @throws\ EmptyDeckException\ When\ called\ on\ an\ empty\ deck.\n\ @see\ isEmpty\n
+comment5.params=c
+comment5.target=void\ discard(Card)
+comment5.text=\n\ Discard\ the\ Card\ object\ passed\ so\ that\ it\ is\ out\ of\ play\ until\ a\n\ remix\ operation.\n
+comment6.params=
+comment6.target=void\ remix()
+comment6.text=\n\ Remixes\ the\ deck\ by\ adding\ all\ previously\ discarded\ cards\ back\ into\n\ the\ deck,\ and\ shuffling.\n
+comment7.params=
+comment7.target=java.util.ArrayList\ getDiscardedCards()
+comment7.text=\n\ Returns\ the\ list\ of\ discarded\ Cards\ since\ the\ last\ remix.\n\ @return\ ArrayList<Card>\ A\ list\ of\ all\ Cards\ that\ have\ been\ discarded\n\ (via\ discard())\ since\ the\ last\ Deck\ remix.\n
+comment8.params=args
+comment8.target=void\ main(java.lang.String[])
+numComments=9

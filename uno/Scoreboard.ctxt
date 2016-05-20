@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.params=playerList
+comment0.target=Scoreboard(java.lang.String[])
+comment0.text=\n\ Instantiate\ a\ new\ Scoreboard\ object,\ given\ an\ array\ of\ player\ names.\n
+comment1.params=player\ points
+comment1.target=void\ addToScore(int,\ int)
+comment1.text=\n\ Award\ points\ to\ a\ particular\ player.\n\ @param\ player\ The\ zero-based\ player\ number\ who\ just\ won\ a\ game.\n\ @param\ points\ The\ number\ of\ points\ to\ award.\n
+comment2.params=player
+comment2.target=int\ getScore(int)
+comment2.text=\n\ Obtain\ the\ score\ of\ a\ particular\ player.\n\ @param\ player\ The\ zero-based\ player\ number\ whose\ score\ is\ desired.\n
+comment3.params=
+comment3.target=java.lang.String\ toString()
+comment3.text=\n\ Render\ the\ Scoreboard\ as\ a\ string\ for\ display\ during\ game\ play.\n
+comment4.params=
+comment4.target=java.lang.String[]\ getPlayerList()
+comment4.text=\n\ Return\ the\ list\ of\ player\ names.\n
+comment5.params=
+comment5.target=int\ getNumPlayers()
+comment5.text=\n\ Return\ the\ number\ of\ players\ in\ the\ game.\n
+comment6.params=
+comment6.target=int\ getWinner()
+comment6.text=\n\ Return\ the\ zero-based\ number\ of\ the\ player\ who\ has\ won\ the\ game,\n\ <i>presuming\ someone\ has.</i>\ (This\ method\ should\ only\ be\ called\n\ once\ the\ end\ of\ the\ entire\ match\ has\ been\ detected\ by\ some\ other\n\ means,\ and\ returns\ the\ number\ of\ the\ player\ with\ the\ highest\ score.)\n
+numComments=7
