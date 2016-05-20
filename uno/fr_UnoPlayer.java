@@ -4,13 +4,11 @@ package uno;
 import java.util.*;
 import java.awt.Color;
 
-public class zb_UnoPlayer implements UnoPlayer {
+public class fr_UnoPlayer implements UnoPlayer {
 
     final static private int IMP_COLOR_LEFT = 1000;
     final static private int IMP_FEW_CARDS = 5000;
     final static private int IMP_LAST_PLAYED_WILD = 2;
-    final static private int IMP_RID_FACE_CARDS = 2000;
-    final static private int IMP_NUMCARDS = 1000;
 
     /**
      * play - This method is called when it's your turn and you need to
@@ -47,14 +45,27 @@ public class zb_UnoPlayer implements UnoPlayer {
     GameState state) {
         List<Card> validCards = new ArrayList<Card>();
         List<Integer> probabilities = new ArrayList<Integer>();
-
-        for(Card c: hand) {
-            if(c.canPlayOn(upCard, calledColor)) {
-                addValidCard(validCards, probabilities, c);
+        for(int i = 0; i < hand.size(); i++) {
+            if(upCard.getRank().equals(Rank.WILD) || upCard.getRank().equals(Rank.WILD_D4)) {
+                if(hand.get(i).getColor().equals(calledColor)) {
+                    addValidCard(validCards, probabilities, hand.get(i));
+                }
+            } else {
+                if(hand.get(i).getColor().equals(upCard.getColor())) {
+                    addValidCard(validCards, probabilities, hand.get(i));
+                } else if(hand.get(i).getNumber() == upCard.getNumber() && upCard.getNumber() != -1) {
+                    addValidCard(validCards, probabilities, hand.get(i));
+                } else if(hand.get(i).getRank() == upCard.getRank() && !upCard.getRank().equals(Rank.NUMBER)) {
+                    addValidCard(validCards, probabilities, hand.get(i));
+                }
             }
         }
 
-        evaluateCards(hand, validCards, probabilities, state);
+        for(int i = 0; i < hand.size(); i++) {
+            if(hand.get(i).getRank().equals(Rank.WILD_D4) || hand.get(i).getRank().equals(Rank.WILD)) { 
+                addValidCard(validCards, probabilities, hand.get(i));
+            }
+        }
 
         return cardToPlay(hand, validCards, probabilities);
     }
@@ -71,7 +82,7 @@ public class zb_UnoPlayer implements UnoPlayer {
     public Color callColor(List<Card> hand) {
         Color[] colors = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW};
         double[] percentageList = new double[4];
-        
+
         for(int i = 0; i < colors.length; i++) {
             percentageList[i] = percentageOfColorInHand(hand, colors[i]);
         }
@@ -130,15 +141,13 @@ public class zb_UnoPlayer implements UnoPlayer {
             int p = probabilities.get(i);
 
             p += (int)(IMP_COLOR_LEFT * percentageOfColorInHand(hand, c.getColor()));
-            
+
             if(c.getRank().equals(Rank.SKIP)
             || c.getRank().equals(Rank.REVERSE)
             || c.getRank().equals(Rank.DRAW_TWO)
             || c.getRank().equals(Rank.WILD_D4)) {
                 int num = state.getNumCardsInHandsOfUpcomingPlayers()[0];
-                p += (int)(IMP_FEW_CARDS * Math.pow(Math.E, -1.0/3 * (num-1))) + IMP_RID_FACE_CARDS;;
-            } else {
-                p += IMP_NUMCARDS * c.getNumber();
+                p += (int)(IMP_FEW_CARDS * Math.pow(Math.E, -1.0/3 * (num-1)));
             }
 
             probabilities.set(i, p);
@@ -189,26 +198,6 @@ public class zb_UnoPlayer implements UnoPlayer {
 
 /* Original Valid Card Finder
  * 
- * for(int i = 0; i < hand.size(); i++) {
+ * 
 
-if(upCard.getRank().equals(Rank.WILD) || upCard.getRank().equals(Rank.WILD_D4)) {
-if(hand.get(i).getColor().equals(calledColor)) {
-addValidCard(validCards, probabilities, hand.get(i));
-}
-} else {
-if(hand.get(i).getColor().equals(upCard.getColor())) {
-addValidCard(validCards, probabilities, hand.get(i));
-} else if(hand.get(i).getNumber() == upCard.getNumber() && upCard.getNumber() != -1) {
-addValidCard(validCards, probabilities, hand.get(i));
-} else if(hand.get(i).getRank() == upCard.getRank() && !upCard.getRank().equals(Rank.NUMBER)) {
-addValidCard(validCards, probabilities, hand.get(i));
-}
-}
-}
-
-for(int i = 0; i < hand.size(); i++) {
-if(hand.get(i).getRank().equals(Rank.WILD_D4) || hand.get(i).getRank().equals(Rank.WILD)) { 
-addValidCard(validCards, probabilities, hand.get(i));
-}
-}
  */
