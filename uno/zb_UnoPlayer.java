@@ -6,7 +6,9 @@ import java.awt.*;
 
 public class zb_UnoPlayer implements UnoPlayer {
 
-    final private int COLOR_LEFT_IMP = 5;
+    final private int IMP_COLOR_LEFT = 5;
+    final private int IMP_LAST_PLAYED_WILD = 2;
+    
     
     /**
      * play - This method is called when it's your turn and you need to
@@ -87,5 +89,13 @@ public class zb_UnoPlayer implements UnoPlayer {
         // THIS IS WHERE YOUR AMAZING CODE GOES
         return Color.RED;
     }
-
+    
+    public static Object lastInArray(List<?> l) {
+        return l.get(l.size() - 1);
+    }
+    
+    public static Card lastCard(List<Card> l) {
+        return (Card)lastInArray(l);
+    }
+    
 }
