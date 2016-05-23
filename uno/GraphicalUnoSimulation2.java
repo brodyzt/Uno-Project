@@ -9,7 +9,7 @@ import javax.imageio.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class GraphicalUnoSimulation extends JFrame {
+public class GraphicalUnoSimulation2 extends JFrame {
 
     public static int WINDOW_WIDTH=1150;
     public static final int WINDOW_HEIGHT=750;
@@ -22,12 +22,12 @@ public class GraphicalUnoSimulation extends JFrame {
     public static void main() {
         int numGames = 0;
         /*if (args.length != 1  &&  args.length != 2) {
-            System.out.println("Usage: UnoSimulation numberOfGames.");
-            System.exit(1);
+        System.out.println("Usage: UnoSimulation numberOfGames.");
+        System.exit(1);
         }*/
         numGames = 10000;
         try {
-            new GraphicalUnoSimulation(numGames);
+            new GraphicalUnoSimulation2(numGames);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -43,7 +43,7 @@ public class GraphicalUnoSimulation extends JFrame {
 
     private void loadPlayerData() throws Exception {
         BufferedReader br = new BufferedReader(new FileReader(
-            PLAYER_FILENAME));
+                    PLAYER_FILENAME));
         String playerLine = br.readLine();
         while (playerLine != null) {
             Scanner line = new Scanner(playerLine).useDelimiter(",");
@@ -53,7 +53,7 @@ public class GraphicalUnoSimulation extends JFrame {
         }
     }
 
-    private GraphicalUnoSimulation(int numGames) throws Exception {
+    private GraphicalUnoSimulation2(int numGames) throws Exception {
 
         playerNames = new ArrayList<String>();
         playerClasses = new ArrayList<String>();
@@ -68,7 +68,7 @@ public class GraphicalUnoSimulation extends JFrame {
         scoreProgressBars = new ArrayList<JProgressBar>();
         for (int i=0; i<playerClasses.size(); i++) {
             JProgressBar bar = new JProgressBar(
-                SwingConstants.VERTICAL, 0, numGames * 7 * playerNames.size());
+                    SwingConstants.VERTICAL, 0, numGames * 7 * playerNames.size());
             bar.setBackground(new Color(230,230,230));
             bar.setBorderPainted(false);
             scoreProgressBars.add(bar);
@@ -85,12 +85,12 @@ public class GraphicalUnoSimulation extends JFrame {
         scoreLabels = new ArrayList<JLabel>();
         for (int i=0; i<playerClasses.size(); i++) {
             playerLabels.add(new JLabel(playerNames.get(i),
-                SwingConstants.CENTER));
+                    SwingConstants.CENTER));
             scoreLabels.add(new JLabel("0", SwingConstants.CENTER));
             playerLabels.get(i).setFont(new Font("Planet Benson 2",Font.PLAIN, 26));
             scoreLabels.get(i).setFont(new Font("Monospace",Font.PLAIN, 16));
         }
-        
+
         GridBagLayout gridbag = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         setLayout(gridbag);
@@ -101,7 +101,7 @@ public class GraphicalUnoSimulation extends JFrame {
         c.gridwidth = playerNames.size();
         c.weighty = 1.0;
         JLabel title = new JLabel("Stephen's Smokin' UNO Simulator",
-            SwingConstants.CENTER);
+                SwingConstants.CENTER);
         title.setFont(new Font("Living by Numbers",Font.PLAIN, 55));
         title.setForeground(new Color(139,0,0));
         gridbag.setConstraints(title, c);
@@ -122,7 +122,7 @@ public class GraphicalUnoSimulation extends JFrame {
         c.insets = new Insets(0,0,0,0);
         ImageIcon card =
             new ImageIcon(ImageIO.read(new File("draw4.jpg")).
-            getScaledInstance(80,115,0));
+                getScaledInstance(80,115,0));
         JButton cardButton = new JButton(card);
         Insets insets = cardButton.getInsets();
         insets.top=4;
@@ -132,20 +132,20 @@ public class GraphicalUnoSimulation extends JFrame {
         cardButton.setMargin(insets);
         c.fill = GridBagConstraints.NONE;
         cardButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                new Thread(new Runnable() {
-                    public void run() {
-                        simulate();
-                    }
-                }).start();
-            }
-        });
+                public void actionPerformed(ActionEvent e) {
+                    new Thread(new Runnable() {
+                            public void run() {
+                                simulate();
+                            }
+                        }).start();
+                }
+            });
         gridbag.setConstraints(cardButton, c);
         add(cardButton);
-        
+
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 1.0;
-        
+
         c.gridy=2;
         // Actually add the score progress bars (and labels) to the JFrame.
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -175,27 +175,38 @@ public class GraphicalUnoSimulation extends JFrame {
             add(scoreLabels.get(i));
         }
 
-
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
         setSize(WINDOW_WIDTH,WINDOW_HEIGHT);
-
         setLocationRelativeTo(null);
         setVisible(true);
         getContentPane().setBackground(new Color(230,230,230));
     }
 
-    private void simulate() {
-        UnoSimulation.PRINT_VERBOSE = false;
+    private void simulate(double[] stats) {
+        double stats = {IMP_COLOR_LEFT, IMP_FEW_CARDS, IMP_LAST_PLAYED_WILD, IMP_RID_FACE_CARDS, IMP_NUMCARDS, IMP_KILL_WINNING_PLAYER, PERCENTAGE_WINNING_BY};
+        double bestStats = new double [7];
         
+        UnoSimulation.PRINT_VERBOSE = false;
+
         for (int j=0; j<playerClasses.size(); j++) {
             playerLabels.get(j).setForeground(Color.BLACK);
             scoreProgressBars.get(j).setForeground(Color.BLUE);
         }
+
+        int IMP_COLOR_LEFT;
+        int IMP_FEW_CARDS;
+        int IMP_LAST_PLAYED_WILD;
+        int IMP_RID_FACE_CARDS;
+        int IMP_NUMCARDS;
+
+        int IMP_KILL_WINNING_PLAYER = 5000;
+        double PERCENTAGE_WINNING_BY = 5;
+        
+
         try {
             Scoreboard s = new Scoreboard(playerNames.toArray(new String[0]));
             for (int i=1; i<=numGames; i++) {
-                Game g = new Game(s,playerClasses);
+                Game g = new Game(s, playerClasses, stats);
                 if(!g.play()) {
                     System.out.println("Illegal play. Aborting.");
                     return;
@@ -213,8 +224,6 @@ public class GraphicalUnoSimulation extends JFrame {
         catch (Exception e) {
             e.printStackTrace();
         }
-        
-        
-    }
 
+    }
 }
