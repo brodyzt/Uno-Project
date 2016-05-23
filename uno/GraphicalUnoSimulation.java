@@ -25,7 +25,7 @@ public class GraphicalUnoSimulation extends JFrame {
             System.out.println("Usage: UnoSimulation numberOfGames.");
             System.exit(1);
         }*/
-        numGames = 100000;
+        numGames = 10000;
         try {
             new GraphicalUnoSimulation(numGames);
         }
@@ -213,6 +213,8 @@ public class GraphicalUnoSimulation extends JFrame {
         catch (Exception e) {
             e.printStackTrace();
         }
+        
+        
     }
 
 }

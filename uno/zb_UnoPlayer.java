@@ -10,7 +10,10 @@ public class zb_UnoPlayer implements UnoPlayer {
     final static private int IMP_FEW_CARDS = 2000;
     final static private int IMP_LAST_PLAYED_WILD = 1;
     final static private int IMP_RID_FACE_CARDS = 500;
-    final static private int IMP_NUMCARDS = 500;
+    final static private int IMP_NUMCARDS = 5000;
+    
+    final static private int IMP_KILL_WINNING_PLAYER = 5000;
+    final static private double PERCENTAGE_WINNING_BY = 5;
 
     /**
      * play - This method is called when it's your turn and you need to
@@ -140,10 +143,26 @@ public class zb_UnoPlayer implements UnoPlayer {
             } else {
                 p += IMP_NUMCARDS * c.getNumber();
             }
+            
+            if(nextPlayerIsWinningSignificantly(state)) {
+                p += IMP_KILL_WINNING_PLAYER;
+            }
 
             probabilities.set(i, p);
         }
         //print("Test");
+    }
+    
+    public static boolean nextPlayerIsWinningSignificantly(GameState state) {
+        int[] scores = state.getTotalScoreOfUpcomingPlayers();
+        
+        for(int i = 1; i < scores.length; i++) {
+            if(scores[0] <= (1 + PERCENTAGE_WINNING_BY/100) * scores[i]) {
+                return false;
+            }
+        }
+        
+        return true;
     }
 
     public static double percentageOfColorInHand(List<Card> hand, Color color) {
