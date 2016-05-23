@@ -56,7 +56,7 @@ public class UnoSimulation {
      * magnitude of output.
      */
     public static void main() {
-        String[] args = {"100"};
+        String[] args = {"1"};
         int numGames = 0;
         if (args.length != 1  &&  args.length != 2) {
             System.out.println("Usage: UnoSimulation numberOfGames [verbose|quiet].");

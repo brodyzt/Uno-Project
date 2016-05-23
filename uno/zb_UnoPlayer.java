@@ -6,11 +6,11 @@ import java.awt.Color;
 
 public class zb_UnoPlayer implements UnoPlayer {
 
-    final static private int IMP_COLOR_LEFT = 1000;
-    final static private int IMP_FEW_CARDS = 5000;
-    final static private int IMP_LAST_PLAYED_WILD = 2;
-    final static private int IMP_RID_FACE_CARDS = 2000;
-    final static private int IMP_NUMCARDS = 1000;
+    final static private int IMP_COLOR_LEFT = 1;
+    final static private int IMP_FEW_CARDS = 2000;
+    final static private int IMP_LAST_PLAYED_WILD = 1;
+    final static private int IMP_RID_FACE_CARDS = 500;
+    final static private int IMP_NUMCARDS = 500;
 
     /**
      * play - This method is called when it's your turn and you need to
