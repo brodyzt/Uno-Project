@@ -6,24 +6,15 @@ import java.awt.Color;
 
 public class zb_UnoPlayer implements UnoPlayer {
 
-    private double IMP_COLOR_LEFT = 100;
-    private double IMP_FEW_CARDS = 1000;
-    private double IMP_LAST_PLAYED_WILD = 100;
-    private double IMP_RID_FACE_CARDS = 5000;
-    private double IMP_NUMCARDS = 1000;
+    private static double IMP_COLOR_LEFT = 1;
+    private static double IMP_FEW_CARDS = 500;
+    private static double IMP_LAST_PLAYED_WILD = 1;
+    private static double IMP_RID_FACE_CARDS = 2;
+    private static double IMP_NUMCARDS = 400;
     
-    private double IMP_KILL_WINNING_PLAYER = 5000;
-    private double PERCENTAGE_WINNING_BY = 5;
+    private static double IMP_KILL_WINNING_PLAYER = 1;
+    private static double PERCENTAGE_WINNING_BY = 5;
     
-    public void set(double[] stats) {
-        this.IMP_COLOR_LEFT = stats[0];
-        this.IMP_FEW_CARDS = stats[1];
-        this.IMP_LAST_PLAYED_WILD = stats[2];
-        this.IMP_RID_FACE_CARDS = stats[3];
-        this.IMP_NUMCARDS = stats[4];
-        this.IMP_KILL_WINNING_PLAYER = stats[5];
-        this.PERCENTAGE_WINNING_BY = stats[6];
-    }
     
     /**
      * play - This method is called when it's your turn and you need to
